@@ -1,4 +1,4 @@
-package com.pdv.mareu.Ui;
+package com.pdv.mareu.Ui.MainActivity;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

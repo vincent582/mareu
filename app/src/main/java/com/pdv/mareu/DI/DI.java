@@ -1,14 +1,13 @@
 package com.pdv.mareu.DI;
 
 
-import com.pdv.mareu.Service.MeetingApiService;
+import com.pdv.mareu.ApiService.MeetingApiService;
+import com.pdv.mareu.Repository.MeetingRepository;
 
 public class DI {
 
-    private static MeetingApiService sService = new MeetingApiService();
-
-    public static MeetingApiService getMeetingApiService() {
-        return sService;
+    public static MeetingRepository createMeetingRepository() {
+        return new MeetingRepository(new MeetingApiService());
     }
 
 }
