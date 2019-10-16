@@ -35,7 +35,7 @@ public class MeetingItemViewHolder extends RecyclerView.ViewHolder {
         List<String> mails = meeting.getMailContributor();
         String textmails = "";
         for (String mail: mails){
-            textmails += mail+",";
+            textmails += mail+" , ";
         }
         this.mails.setText(textmails);
 
