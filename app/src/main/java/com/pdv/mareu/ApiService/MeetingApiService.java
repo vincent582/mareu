@@ -11,4 +11,9 @@ public class MeetingApiService implements MyMeetingApiService {
     public List<Meeting> getMeetingList() {
         return this.mMeetingList;
     }
+
+    @Override
+    public void addMeeting(Meeting meeting) {
+        mMeetingList.add(meeting);
+    }
 }

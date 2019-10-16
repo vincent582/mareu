@@ -9,7 +9,7 @@ public class Meeting {
     private String subject;
     private List<String> mailContributor;
 
-    public Meeting(String room, String subject, List<String> mailContributor) {
+    public Meeting(String subject, String room, List<String> mailContributor) {
         this.time = "13h30";
         this.room = room;
         this.subject = subject;

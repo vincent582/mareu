@@ -65,7 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinner" />
+        app:layout_constraintTop_toBottomOf="@id/roomSpinner_sp" />
 
     <TextView
         android:id="@+id/title_new_meeting_tv"
@@ -155,7 +155,7 @@
         app:layout_constraintTop_toBottomOf="@id/meeting_time_tv" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/roomSpinner_sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
@@ -165,7 +165,7 @@
         app:layout_constraintTop_toBottomOf="@+id/meeting_room_tv" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/create_meeting_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"

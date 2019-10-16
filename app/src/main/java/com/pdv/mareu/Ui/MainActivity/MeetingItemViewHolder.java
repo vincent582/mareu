@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.pdv.mareu.Model.Meeting;
 import com.pdv.mareu.R;
 
+import java.util.List;
+
 public class MeetingItemViewHolder extends RecyclerView.ViewHolder {
 
     private ImageView pastil;
@@ -26,5 +28,13 @@ public class MeetingItemViewHolder extends RecyclerView.ViewHolder {
 
     public void updateWithMeeting(Meeting meeting){
         this.title.setText(meeting.getSubject()+" - "+meeting.getRoom() +" - "+meeting.getTime());
+
+        List<String> mails = meeting.getMailContributor();
+        String textmails = "";
+        for (String mail: mails){
+            textmails += mail+",";
+        }
+        this.mails.setText(textmails);
     }
+
 }

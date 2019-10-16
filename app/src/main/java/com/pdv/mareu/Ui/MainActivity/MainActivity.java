@@ -2,17 +2,14 @@ package com.pdv.mareu.Ui.MainActivity;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
-
-import com.pdv.mareu.Base.BaseApplication;
+import com.pdv.mareu.Base.BaseActivity;
 import com.pdv.mareu.R;
 import com.pdv.mareu.Ui.CreateMeetingActivity.CreateMeetingActivity;
 
-public class MainActivity extends BaseApplication {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +43,6 @@ public class MainActivity extends BaseApplication {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_activity_main,menu);
-
         return true;
     }
 

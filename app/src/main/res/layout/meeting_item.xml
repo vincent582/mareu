@@ -47,7 +47,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:singleLine="true"
-        android:text="romain@gmail.com , peach@mailer.com"
+        android:text="mario@gmail.com , peach@mailer.com"
         android:textAlignment="textStart"
         app:layout_constraintEnd_toStartOf="@+id/delete_item_iv"
         app:layout_constraintStart_toEndOf="@id/item_list_pastil"

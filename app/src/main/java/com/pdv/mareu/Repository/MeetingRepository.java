@@ -17,4 +17,8 @@ public class MeetingRepository {
         List<Meeting> meetings = mMeetingApiService.getMeetingList();
         return meetings;
     }
+
+    public void addMeeting(Meeting meeting){
+        mMeetingApiService.addMeeting(meeting);
+    }
 }
