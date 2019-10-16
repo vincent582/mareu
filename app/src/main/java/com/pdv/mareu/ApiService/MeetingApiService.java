@@ -16,4 +16,9 @@ public class MeetingApiService implements MyMeetingApiService {
     public void addMeeting(Meeting meeting) {
         mMeetingList.add(meeting);
     }
+
+    @Override
+    public void deleteMeeting(Meeting meeting) {
+        mMeetingList.remove(meeting);
+    }
 }

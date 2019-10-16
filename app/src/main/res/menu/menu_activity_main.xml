@@ -7,7 +7,7 @@
         android:checkable="true"
         android:enabled="true"
         android:icon="@drawable/ic_filter_list_white_24dp"
-        android:title="@string/spinner"
+        android:title="spinner"
         android:visible="true"
         app:showAsAction="ifRoom"/>
 </menu>

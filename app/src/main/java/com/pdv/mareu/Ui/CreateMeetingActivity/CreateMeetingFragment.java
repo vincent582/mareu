@@ -3,23 +3,21 @@ package com.pdv.mareu.Ui.CreateMeetingActivity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.pdv.mareu.ApiService.MeetingGeneratorApi;
 import com.pdv.mareu.Model.Meeting;
 import com.pdv.mareu.R;
 import com.pdv.mareu.Repository.MeetingRepository;
-import com.pdv.mareu.Ui.MainActivity.MainActivity;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -50,12 +48,21 @@ public class CreateMeetingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_create_meeting, container, false);
         ButterKnife.bind(this,view);
 
-        mMeetingRepository = ((CreateMeetingActivity)getActivity()).getMeetingRepository();
+        configureRoomSpinner();
 
+        mMeetingRepository = ((CreateMeetingActivity)getActivity()).getMeetingRepository();
         configureButtonCreateMeeting();
 
         return view;
     }
+
+    private void configureRoomSpinner() {
+        List<String> room = MeetingGeneratorApi.MAILS;
+        //add values in area arrayList
+        mMeetingRoom.setAdapter(new ArrayAdapter<String>(getContext()
+                , android.R.layout.simple_spinner_dropdown_item, room));
+    }
+
 
     private void configureButtonCreateMeeting() {
         mCreateMeetingBtn.setOnClickListener(new View.OnClickListener() {
@@ -63,18 +70,23 @@ public class CreateMeetingFragment extends Fragment {
             public void onClick(View v) {
                 //get Subject of Meeting
                 String subjet = mMeetingSubject.getText().toString();
-                Log.i("TAG", "Subjet: "+subjet);
 
                 //get all mail contributor and create ArrayList
                 String mail1 = mMeetingContributor1.getText().toString();
-                String mail2 = mMeetingContributor1.getText().toString();
-                String mail3 = mMeetingContributor1.getText().toString();
-                List<String> mails = new ArrayList<>();
+                String mail2 = mMeetingContributor2.getText().toString();
+                String mail3 = mMeetingContributor3.getText().toString();
+                List<String> mails = new ArrayList<String>();
                 mails.add(mail1);
                 mails.add(mail2);
                 mails.add(mail3);
 
-                Meeting meeting = new Meeting("room",subjet,mails);
+                //get Time
+                String hour = mMeetingTime.getCurrentHour().toString();
+                String minute = mMeetingTime.getCurrentMinute().toString();
+                String time = hour + "h" + minute;
+
+                //create new meeting
+                Meeting meeting = new Meeting("salle 2",subjet,mails,time);
                 mMeetingRepository.addMeeting(meeting);
                 getActivity().finish();
             }

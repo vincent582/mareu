@@ -9,4 +9,6 @@ public interface MyMeetingApiService {
     List<Meeting> getMeetingList();
 
     void addMeeting(Meeting meeting);
+
+    void deleteMeeting(Meeting meeting);
 }

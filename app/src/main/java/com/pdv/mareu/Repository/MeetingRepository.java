@@ -21,4 +21,8 @@ public class MeetingRepository {
     public void addMeeting(Meeting meeting){
         mMeetingApiService.addMeeting(meeting);
     }
+
+    public void deleteMeeting(Meeting meeting){
+        mMeetingApiService.deleteMeeting(meeting);
+    }
 }

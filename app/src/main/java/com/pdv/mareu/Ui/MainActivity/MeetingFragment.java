@@ -12,9 +12,13 @@ import android.view.ViewGroup;
 
 import com.pdv.mareu.Base.BaseActivity;
 import com.pdv.mareu.DI.DI;
+import com.pdv.mareu.Event.DeleteMeetingEvent;
 import com.pdv.mareu.Model.Meeting;
 import com.pdv.mareu.R;
 import com.pdv.mareu.Repository.MeetingRepository;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -55,6 +59,24 @@ public class MeetingFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        initList();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onDeleteMeeting(DeleteMeetingEvent event){
+        mMeetingRepository.deleteMeeting(event.mMeeting);
         initList();
     }
 }

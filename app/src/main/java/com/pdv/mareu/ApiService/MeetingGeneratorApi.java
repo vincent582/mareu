@@ -14,9 +14,9 @@ public abstract class MeetingGeneratorApi {
     );
 
     public static List<Meeting> FAKE_MEETING = Arrays.asList(
-            new Meeting("Peach","Réunion A",MAILS),
-            new Meeting("Mario","Réunion B",MAILS),
-            new Meeting("Luigi","Réunion C",MAILS)
+            new Meeting("Peach","Réunion A",MAILS,"13h30"),
+            new Meeting("Mario","Réunion B",MAILS,"15h30"),
+            new Meeting("Luigi","Réunion C",MAILS,"18h00")
     );
 
     static List<Meeting> generateMeeting() {

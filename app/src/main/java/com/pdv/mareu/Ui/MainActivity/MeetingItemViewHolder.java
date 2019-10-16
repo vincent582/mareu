@@ -6,8 +6,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pdv.mareu.Event.DeleteMeetingEvent;
 import com.pdv.mareu.Model.Meeting;
 import com.pdv.mareu.R;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -35,6 +38,13 @@ public class MeetingItemViewHolder extends RecyclerView.ViewHolder {
             textmails += mail+",";
         }
         this.mails.setText(textmails);
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new DeleteMeetingEvent(meeting));
+            }
+        });
     }
 
 }
