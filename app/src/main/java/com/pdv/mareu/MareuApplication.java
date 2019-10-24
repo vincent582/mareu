@@ -1,6 +1,7 @@
 package com.pdv.mareu;
 
 import android.app.Application;
+import android.content.res.Configuration;
 
 import com.pdv.mareu.DI.DI;
 import com.pdv.mareu.Repository.MeetingRepository;
@@ -14,5 +15,11 @@ public class MareuApplication extends Application {
             mMeetingRepository = DI.createMeetingRepository();
         }
         return mMeetingRepository;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        this.mMeetingRepository = DI.createMeetingRepository();
     }
 }

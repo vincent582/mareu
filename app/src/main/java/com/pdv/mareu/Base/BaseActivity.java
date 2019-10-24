@@ -9,5 +9,4 @@ public abstract class BaseActivity extends AppCompatActivity {
     public MeetingRepository getMeetingRepository(){
         return ((MareuApplication) getApplication()).getMeetingRepository();
     }
-
 }

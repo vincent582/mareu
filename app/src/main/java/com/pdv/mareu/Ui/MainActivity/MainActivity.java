@@ -4,7 +4,12 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
+
 import com.pdv.mareu.Base.BaseActivity;
 import com.pdv.mareu.R;
 import com.pdv.mareu.Ui.CreateMeetingActivity.CreateMeetingActivity;
@@ -15,18 +20,12 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        configureFragment();
+        configureToolbar();
+        configureFABAddMeeting();
+    }
 
-        this.configureToolbar();
-
-        FloatingActionButton add_meeting_fab = findViewById(R.id.add_meeting_fab);
-        add_meeting_fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,CreateMeetingActivity.class);
-                startActivity(intent);
-            }
-        });
-
+    private void configureFragment() {
         MeetingFragment fragment = new MeetingFragment();
         getSupportFragmentManager()
                 .beginTransaction()
@@ -39,6 +38,17 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(toolbar);
     }
 
+    private void configureFABAddMeeting() {
+        FloatingActionButton add_meeting_fab = findViewById(R.id.add_meeting_fab);
+        add_meeting_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,CreateMeetingActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -46,4 +56,18 @@ public class MainActivity extends BaseActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()){
+            case R.id.sort_by_date_item:
+                Toast.makeText(this,"trier par date",Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.sort_by_place_item:
+                Toast.makeText(this,"trier par place",Toast.LENGTH_LONG).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

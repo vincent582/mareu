@@ -1,6 +1,9 @@
 package com.pdv.mareu.Ui.MainActivity;
 
+import android.content.Context;
+import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,22 +17,23 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MeetingItemViewHolder extends RecyclerView.ViewHolder {
 
-    private ImageView pastil;
-    private TextView title;
-    private TextView mails;
-    private ImageView delete;
+    @BindView(R.id.item_list_title) TextView title;
+    @BindView(R.id.item_list_pastil) ImageView pastil;
+    @BindView(R.id.item_mail_list) TextView mails;
+    @BindView(R.id.delete_item_iv) ImageView delete;
 
     public MeetingItemViewHolder(@NonNull View itemView) {
         super(itemView);
-        pastil = itemView.findViewById(R.id.item_list_pastil);
-        title = itemView.findViewById(R.id.item_list_title);
-        mails = itemView.findViewById(R.id.item_mail_list);
-        delete = itemView.findViewById(R.id.delete_item_iv);
+        ButterKnife.bind(this,itemView);
     }
 
     public void updateWithMeeting(Meeting meeting){
+        //TODO Update view holder to show meeting
         this.title.setText(meeting.getSubject()+" - "+meeting.getRoom() +" - "+meeting.getTime());
 
         List<String> mails = meeting.getMailContributor();

@@ -3,11 +3,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
     <item
-        android:id="@+id/menu_activity_main_spinner"
+        android:id="@+id/menu_activity_item_sort_by"
+        android:icon="@drawable/ic_filter_list_white_24dp"
         android:checkable="true"
         android:enabled="true"
-        android:icon="@drawable/ic_filter_list_white_24dp"
-        android:title="spinner"
+        android:title="sort_by"
         android:visible="true"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"
+        >
+        <menu>
+            <item
+                android:title="Trier par date"
+                android:id="@+id/sort_by_date_item"
+                ></item>
+            <item
+                android:title="Trier par lieu"
+                android:id="@+id/sort_by_place_item"
+                ></item>
+        </menu>
+    </item>
+
 </menu>

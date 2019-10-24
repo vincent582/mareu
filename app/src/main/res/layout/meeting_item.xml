@@ -15,7 +15,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
-        android:tint="#9ABCA4"
+        android:tint="@color/colorMeetingRoom1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/item_list_title"
         app:layout_constraintStart_toStartOf="parent"

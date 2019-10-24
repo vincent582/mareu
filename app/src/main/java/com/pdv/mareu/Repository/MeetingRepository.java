@@ -2,6 +2,7 @@ package com.pdv.mareu.Repository;
 
 import com.pdv.mareu.Model.Meeting;
 import com.pdv.mareu.ApiService.MeetingApiService;
+import com.pdv.mareu.Model.Room;
 
 import java.util.List;
 
@@ -24,5 +25,14 @@ public class MeetingRepository {
 
     public void deleteMeeting(Meeting meeting){
         mMeetingApiService.deleteMeeting(meeting);
+    }
+
+    public List<Room> getMeetingsRoomsList(){
+        List<Room> roomList = mMeetingApiService.getRooms();
+        return roomList;
+    }
+
+    public Boolean roomIsAvailable(Room room, int hour,int minute){
+        return mMeetingApiService.checkIfRoomIsAvailableAtTime(room,hour,minute);
     }
 }

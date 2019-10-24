@@ -2,6 +2,7 @@ package com.pdv.mareu.ApiService;
 
 import com.pdv.mareu.Model.Meeting;
 import com.pdv.mareu.Model.Room;
+import com.pdv.mareu.R;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -30,12 +31,13 @@ public abstract class MeetingGeneratorApi {
     );
 
     public static List<Meeting> FAKE_MEETING = Arrays.asList(
-            new Meeting("Peach","Réunion A",MAILS,"13h30"),
-            new Meeting("Mario","Réunion B",MAILS,"15h30"),
-            new Meeting(ROOM_LIST.get(4).getName(),"Réunion C",MAILS,"18h00")
+            new Meeting(ROOM_LIST.get(7),"Réunion A",MAILS,13,12),
+            new Meeting(ROOM_LIST.get(2),"Réunion B",MAILS,22,10),
+            new Meeting(ROOM_LIST.get(4),"Réunion C",MAILS,17,45)
     );
 
     static List<Meeting> generateMeeting() {
         return new ArrayList<>(FAKE_MEETING);
     }
+    static List<Room> generateRooms(){ return new ArrayList<>(ROOM_LIST);}
 }
