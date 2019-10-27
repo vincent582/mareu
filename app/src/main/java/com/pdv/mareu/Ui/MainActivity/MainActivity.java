@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity {
         add_meeting_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,CreateMeetingActivity.class);
+                Intent intent = new Intent(MainActivity.this, CreateMeetingActivity.class);
                 startActivity(intent);
             }
         });
@@ -52,22 +52,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_activity_main,menu);
+        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
-        switch (item.getItemId()){
-            case R.id.sort_by_date_item:
-                Toast.makeText(this,"trier par date",Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.sort_by_place_item:
-                Toast.makeText(this,"trier par place",Toast.LENGTH_LONG).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 }

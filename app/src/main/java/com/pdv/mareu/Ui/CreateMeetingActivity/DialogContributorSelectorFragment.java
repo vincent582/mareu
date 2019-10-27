@@ -29,13 +29,14 @@ public class DialogContributorSelectorFragment extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         builder.setView(R.layout.dialog_contributor)
         .setTitle("Ajouter des participants")
+        .setMessage("Entrez une adresse Email et cliquez sur \"ajouter\" !")
         .setNegativeButton("annuler", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 mListener.onDialogCancelContributor(DialogContributorSelectorFragment.this);
             }
         })
-        .setNeutralButton("Ajouter plus", new DialogInterface.OnClickListener() {
+        .setNeutralButton("Ajouter", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 mListener.onDialogAddContributorClick(DialogContributorSelectorFragment.this);

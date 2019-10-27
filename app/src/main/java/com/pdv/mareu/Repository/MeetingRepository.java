@@ -35,4 +35,12 @@ public class MeetingRepository {
     public Boolean roomIsAvailable(Room room, int hour,int minute){
         return mMeetingApiService.checkIfRoomIsAvailableAtTime(room,hour,minute);
     }
+
+    public void sortByHour(){
+        mMeetingApiService.sortByHour();
+    }
+
+    public void sortByPlace(){
+        mMeetingApiService.sortByPlace();
+    }
 }

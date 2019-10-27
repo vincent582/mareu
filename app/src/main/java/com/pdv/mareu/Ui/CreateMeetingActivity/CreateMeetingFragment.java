@@ -116,17 +116,14 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedRoom = (Room) mMeetingRoom.getSelectedItem();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
     }
 
     private void createMeeting() {
         subjet = mMeetingSubject.getText().toString();
-
         if (subjet.isEmpty()){
             Toast.makeText(getContext(),"Vous devez renseigner le sujet de la réunion", Toast.LENGTH_SHORT).show();
         }
@@ -149,23 +146,30 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
     @Override
     public void onDialogContributorValidateClick(DialogFragment dialog) {
         EditText contributor = dialog.getDialog().findViewById(R.id.contributor_edit_txt);
-        mails.add(contributor.getText().toString());
-        showListContributor();
-        Toast.makeText(this.getContext(),"Choix validé !",Toast.LENGTH_SHORT).show();
+        if (mails.isEmpty()){
+            Toast.makeText(this.getContext(),"Vous n'avez ajouté aucun participants!",Toast.LENGTH_LONG).show();
+        } else {
+            showListContributor();
+        }
     }
 
     @Override
     public void onDialogAddContributorClick(DialogFragment dialog) {
         EditText contributor = dialog.getDialog().findViewById(R.id.contributor_edit_txt);
-        mails.add(contributor.getText().toString());
+        if (isEmailValid(contributor.getText().toString())){
+            mails.add(contributor.getText().toString());
+            Toast.makeText(this.getContext(),"Participant ajouté !",Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(this.getContext(), "Adresse Email invalide",Toast.LENGTH_LONG).show();
+        }
         showContributorDialog();
-        Toast.makeText(this.getContext(),"Participant ajouté !",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onDialogCancelContributor(DialogFragment dialog) {
         mails.clear();
-        showListContributor();
+        mContributorList.setVisibility(View.GONE);
         dialog.dismiss();
     }
 
@@ -176,5 +180,9 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
         minute = time.getCurrentMinute();
         mMeetingSelectTime.setText(String.format("%02dh%02d", hour, minute));
         Toast.makeText(this.getContext(),"Choix validé !",Toast.LENGTH_SHORT).show();
+    }
+
+    boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }
