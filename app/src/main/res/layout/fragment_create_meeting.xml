@@ -148,13 +148,14 @@
         android:id="@+id/list_contributor_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginStart="@dimen/margin_start_to_center_item"
+        android:layout_marginEnd="@dimen/margin_end_to_center_item"
         android:fontFamily="serif"
-        android:padding="10dp"
+        android:padding="@dimen/list_meeting_padding_size"
+        android:text="toto@lamzone.com"
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="14sp"
+        android:textSize="@dimen/list_meeting_text_size"
         android:textStyle="bold"
         android:visibility="gone" />
 
