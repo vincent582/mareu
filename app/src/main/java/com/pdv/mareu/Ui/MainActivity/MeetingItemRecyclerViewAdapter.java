@@ -15,7 +15,7 @@ import java.util.List;
 
 public class MeetingItemRecyclerViewAdapter extends RecyclerView.Adapter<MeetingItemViewHolder> {
 
-    private List<Meeting> mMeetingList;
+    public List<Meeting> mMeetingList;
 
     // CONSTRUCTOR
     public MeetingItemRecyclerViewAdapter(List<Meeting> meetingList) {
@@ -34,12 +34,6 @@ public class MeetingItemRecyclerViewAdapter extends RecyclerView.Adapter<Meeting
     @Override
     public void onBindViewHolder(@NonNull MeetingItemViewHolder meetingItemViewHolder, final int i) {
         meetingItemViewHolder.updateWithMeeting(this.mMeetingList.get(i));
-        meetingItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("TAG", "onClick: click item"+i);
-            }
-        });
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.pdv.mareu.Ui.CreateMeetingActivity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -11,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,16 +21,23 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.pdv.mareu.ApiService.MeetingGeneratorApi;
+import com.pdv.mareu.Base.BaseActivity;
 import com.pdv.mareu.Model.Meeting;
 import com.pdv.mareu.Model.Room;
 import com.pdv.mareu.R;
 import com.pdv.mareu.Repository.MeetingRepository;
+import com.pdv.mareu.Ui.MainActivity.MainActivity;
+
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CreateMeetingFragment extends Fragment implements View.OnClickListener, DialogTimePikerFragment.DialogTimePickerListener, DialogContributorSelectorFragment.DialogContributorListener {
+import static com.pdv.mareu.Utils.Utils.isEmailValid;
+
+public class CreateMeetingFragment extends Fragment implements View.OnClickListener, DialogTimePikerFragment.DialogTimePickerListener, DialogContributorSelectorFragment.DialogContributorListener, DialogDatePickerFragment.DialogDatePickerListener {
 
     @BindView(R.id.create_meeting_subject_et) TextView mMeetingSubject;
     @BindView(R.id.time_selector_btn) Button mMeetingSelectTime;
@@ -36,11 +46,12 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
     @BindView(R.id.create_meeting_btn) Button mCreateMeetingBtn;
     @BindView(R.id.cancel_create_btn) Button mCancelBtn;
     @BindView(R.id.list_contributor_tv) TextView mContributorList;
+    @BindView(R.id.date_selector_btn) Button mDateSelectorBtn;
 
     public MeetingRepository mMeetingRepository;
     private String subjet;
-    private int hour;
-    private int minute;
+    private String timeFormated;
+    private String dateFormated;
     private Room selectedRoom;
     private List<String> mails = new ArrayList<String>();
 
@@ -48,15 +59,14 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
     private final int TAG_BUTTON_TIME = 1;
     private final int TAG_BUTTON_CANCEL = 2;
     private final int TAG_BUTTON_CREATE = 3;
-
-    public CreateMeetingFragment(){}
+    private final int TAG_BUTTON_DATE = 4;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_meeting, container, false);
         ButterKnife.bind(this,view);
-        mMeetingRepository = ((CreateMeetingActivity)getActivity()).getMeetingRepository();
+        mMeetingRepository = ((BaseActivity)getActivity()).getMeetingRepository();
         configureClickListener();
         configureRoomSpinner();
         return view;
@@ -71,6 +81,8 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
         mCancelBtn.setTag(TAG_BUTTON_CANCEL);
         mCreateMeetingBtn.setOnClickListener(this);
         mCreateMeetingBtn.setTag(TAG_BUTTON_CREATE);
+        mDateSelectorBtn.setOnClickListener(this);
+        mDateSelectorBtn.setTag(TAG_BUTTON_DATE);
     }
 
     @Override
@@ -88,8 +100,17 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
             case TAG_BUTTON_CREATE:
                 createMeeting();
                 break;
+            case TAG_BUTTON_DATE:
+                showDatePikerDialog();
+                break;
             default:
         }
+    }
+
+    private void showDatePikerDialog() {
+        DialogDatePickerFragment dialog = new DialogDatePickerFragment();
+        dialog.setTargetFragment(CreateMeetingFragment.this,3);
+        dialog.show(getFragmentManager(),"DialogDatePickerFragment");
     }
 
     private void showTimePikerDialog() {
@@ -105,7 +126,6 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
     }
 
     private void configureRoomSpinner() {
-        //TODO if room isAvailable at time of TimePicker
         //get List Room
         List<Room> rooms = mMeetingRepository.getMeetingsRoomsList();
         //add values in room arrayList
@@ -125,10 +145,13 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
     private void createMeeting() {
         subjet = mMeetingSubject.getText().toString();
         if (subjet.isEmpty()){
-            Toast.makeText(getContext(),"Vous devez renseigner le sujet de la réunion", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),R.string.infoAddSubjectToMeeting, Toast.LENGTH_SHORT).show();
+        }
+        else if((timeFormated == null) || (dateFormated == null)){
+            Toast.makeText(getContext(),R.string.infoAddDateTimeToMeeting, Toast.LENGTH_SHORT).show();
         }
         else{
-            Meeting meeting = new Meeting(selectedRoom,subjet,mails,hour,minute);
+            Meeting meeting = new Meeting(dateFormated,selectedRoom,subjet,mails,timeFormated);
             mMeetingRepository.addMeeting(meeting);
             getActivity().finish();
         }
@@ -137,52 +160,53 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
     public void showListContributor(){
         mContributorList.setVisibility(View.VISIBLE);
         String textmails = "";
-        for (String mail: mails){
-            textmails += mail+"\n";
-        }
+        for (String mail: mails){ textmails += mail+"\n";}
         mContributorList.setText(textmails);
     }
 
     @Override
     public void onDialogContributorValidateClick(DialogFragment dialog) {
         EditText contributor = dialog.getDialog().findViewById(R.id.contributor_edit_txt);
-        if (mails.isEmpty()){
-            Toast.makeText(this.getContext(),"Vous n'avez ajouté aucun participants!",Toast.LENGTH_LONG).show();
-        } else {
-            showListContributor();
-        }
-    }
+        CheckBox addContributor = dialog.getDialog().findViewById(R.id.add_contributor_checkbox);
 
-    @Override
-    public void onDialogAddContributorClick(DialogFragment dialog) {
-        EditText contributor = dialog.getDialog().findViewById(R.id.contributor_edit_txt);
         if (isEmailValid(contributor.getText().toString())){
             mails.add(contributor.getText().toString());
-            Toast.makeText(this.getContext(),"Participant ajouté !",Toast.LENGTH_LONG).show();
+            Toast.makeText(this.getContext(),R.string.contributorAddWithSuccess,Toast.LENGTH_SHORT).show();
+            if (addContributor.isChecked()){
+                showContributorDialog();
+            }else {
+                showListContributor();
+            }
         }
         else {
-            Toast.makeText(this.getContext(), "Adresse Email invalide",Toast.LENGTH_LONG).show();
+            Toast.makeText(this.getContext(),R.string.mailNotValide,Toast.LENGTH_SHORT).show();
+            showContributorDialog();
         }
-        showContributorDialog();
     }
 
     @Override
     public void onDialogCancelContributor(DialogFragment dialog) {
-        mails.clear();
-        mContributorList.setVisibility(View.GONE);
+        showListContributor();
         dialog.dismiss();
     }
 
     @Override
     public void onDialogTimePikerValidateClick(DialogFragment dialog) {
         TimePicker time = (TimePicker) dialog.getDialog().findViewById(R.id.time_dp);
-        hour = time.getCurrentHour();
-        minute = time.getCurrentMinute();
-        mMeetingSelectTime.setText(String.format("%02dh%02d", hour, minute));
-        Toast.makeText(this.getContext(),"Choix validé !",Toast.LENGTH_SHORT).show();
+        int hour = time.getCurrentHour();
+        int minute = time.getCurrentMinute();
+        timeFormated = String.format("%02dh%02d", hour, minute);
+        mMeetingSelectTime.setText(timeFormated);
+        Toast.makeText(this.getContext(),R.string.choiceConfirmed,Toast.LENGTH_SHORT).show();
     }
 
-    boolean isEmailValid(CharSequence email) {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    @Override
+    public void onDialogDatePikerValidateClick(DialogDatePickerFragment dialog) {
+        DatePicker date = (DatePicker) dialog.getDialog().findViewById(R.id.date_dp);
+        int day = date.getDayOfMonth();
+        int month = date.getMonth();
+        int year = date.getYear();
+        dateFormated = String.format("%d-%02d-%02d",year,month,day);
+        mDateSelectorBtn.setText(dateFormated);
     }
 }

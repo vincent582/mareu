@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">Ma réu</string>
     <string name="createMeetingTitle">Nouvelle réunion</string>
+    <string name="infoAddSubjectToMeeting">Vous devez renseigner le sujet de la réunion</string>
+    <string name="infoAddDateTimeToMeeting">Vous devez renseigner la date et l\'heure de la réunion</string>
+    <string name="contributorAddWithSuccess">Participant ajouté !</string>
+    <string name="mailNotValide">Adresse Email invalide</string>
+    <string name="choiceConfirmed">Choix validé !</string>
+
+    <string name="title_subject_text_view">Sujet :</string>
+    <string name="title_date_time_text_view">Heure et Date de réunion :</string>
+    <string name="title_meeting_room_text_view">Salle de Réunion :</string>
+    <string name="title_contributor_text_view">Participants :</string>
+
+    <string name="button_select_contributor_text">Ajouter des participants</string>
+    <string name="button_select_time_text">Selectioner l\'heure</string>
+    <string name="button_select_date_text">Selectioner la date</string>
+    <string name="button_cancel_text">Annuler</string>
+    <string name="button_validate_meeting_text">Créer réunion</string>
 </resources>

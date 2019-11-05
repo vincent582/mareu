@@ -10,9 +10,7 @@ public class MeetingRepository {
 
     private final MeetingApiService mMeetingApiService;
 
-    public MeetingRepository(MeetingApiService meetingApiService) {
-        mMeetingApiService = meetingApiService;
-    }
+    public MeetingRepository(MeetingApiService meetingApiService) { mMeetingApiService = meetingApiService; }
 
     public List<Meeting> getMeetingsList(){
         List<Meeting> meetings = mMeetingApiService.getMeetingList();
@@ -32,13 +30,7 @@ public class MeetingRepository {
         return roomList;
     }
 
-    public Boolean roomIsAvailable(Room room, int hour,int minute){
-        return mMeetingApiService.checkIfRoomIsAvailableAtTime(room,hour,minute);
-    }
-
-    public void sortByHour(){
-        mMeetingApiService.sortByHour();
-    }
+    public void sortByDate(){ mMeetingApiService.sortByDate(); }
 
     public void sortByPlace(){
         mMeetingApiService.sortByPlace();

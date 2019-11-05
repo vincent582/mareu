@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class MeetingApiService implements MyMeetingApiService {
@@ -36,17 +37,13 @@ public class MeetingApiService implements MyMeetingApiService {
     }
 
     @Override
-    public void sortByHour() {
-        Collections.sort(mMeetingList, new Comparator<Meeting>() {
-            @Override
-            public int compare(Meeting o1, Meeting o2) {
-                return Integer.valueOf(o1.getHour()).compareTo(Integer.valueOf(o2.getHour()));
-            }
-            @Override
-            public boolean equals(Object obj) {
-                return false;
-            }
-        });
+    public void sortByDate() {
+     Collections.sort(mMeetingList, new Comparator<Meeting>() {
+         @Override
+         public int compare(Meeting o1, Meeting o2) {
+             return o1.getDate().compareToIgnoreCase(o2.getDate());
+         }
+     });
     }
 
     @Override
@@ -57,30 +54,5 @@ public class MeetingApiService implements MyMeetingApiService {
                 return String.valueOf(o1.getRoom().getName()).compareToIgnoreCase(String.valueOf(o2.getRoom().getName()));
             }
         });
-    }
-
-
-    @Override
-    public boolean checkIfRoomIsAvailableAtTime(Room room, int hour, int minute ) {
-        List<Meeting> meetings = room.getMeetingList();
-        for (Meeting meeting: meetings) {
-            int meetingMinuteEnd = meeting.getMinute() + 45;
-            int meetingHourEnd = 0;
-            if (meetingMinuteEnd > 59){
-                meetingMinuteEnd -= 60;
-                meetingHourEnd = hour + 1;
-                if (meetingHourEnd > 23){
-                    meetingHourEnd = 0;
-                }else {
-                    meetingHourEnd = meeting.getHour();
-                }
-            }
-            if (hour >= meeting.getHour() && hour <= meetingHourEnd){
-                if (minute >= meeting.getMinute() && minute <= meetingMinuteEnd){
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Meeting Item RecyclerView -->
+    <dimen name="pastil_width">55dp</dimen>
+    <dimen name="pastil_height">55dp</dimen>
+    <dimen name="pastil_margin_start">16dp</dimen>
+    <dimen name="pastil_margin_top">16dp</dimen>
+    <dimen name="pastil_margin_bottom">8dp</dimen>
+
+    <dimen name="meeting_item_title_width">248dp</dimen>
+    <dimen name="meeting_item_tilte_margin_start">8dp</dimen>
+    <dimen name="meeting_item_title_margin_top">20dp</dimen>
+    <dimen name="meeting_item_title_margin_end">8dp</dimen>
+    <dimen name="meeting_item_title_text_size">18sp</dimen>
+
+    <dimen name="item_mail_list_width">248dp</dimen>
+    <dimen name="item_mail_list_margin_start">8dp</dimen>
+    <dimen name="item_mail_list_margin_end">8dp</dimen>
+
+    <dimen name="delete_item_iv_width">26dp</dimen>
+    <dimen name="delete_item_iv_height">26dp</dimen>
+    <dimen name="delete_item_iv_margin_top">20dp</dimen>
+    <dimen name="delete_item_iv_margin_end">16dp</dimen>
+    <dimen name="delete_item_iv_margin_bottom">20dp</dimen>
+
+    <!-- FloatingActionButton AddMeeting -->
+    <dimen name="add_meeting_fab_margin_end">16dp</dimen>
+    <dimen name="add_meeting_fab_margin_bottom">16dp</dimen>
+
+    <!-- FragmentCreateMeeting -->
+    <dimen name="divider_height">1dp</dimen>
+    <dimen name="divider_margin">3dp</dimen>
+    <dimen name="text_view_size">12sp</dimen>
+    <dimen name="text_view_padding">4dp</dimen>
+    <dimen name="button_text_size">8sp</dimen>
+    <dimen name="margin_start_to_center_item">20dp</dimen>
+    <dimen name="margin_end_to_center_item">20dp</dimen>
+</resources>

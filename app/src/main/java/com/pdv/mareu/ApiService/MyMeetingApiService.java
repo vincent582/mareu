@@ -15,9 +15,7 @@ public interface MyMeetingApiService {
 
     List<Room> getRooms();
 
-    void sortByHour();
+    void sortByDate();
 
     void sortByPlace();
-
-    boolean checkIfRoomIsAvailableAtTime(Room room, int hour, int minute );
 }

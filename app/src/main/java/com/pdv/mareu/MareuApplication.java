@@ -20,6 +20,6 @@ public class MareuApplication extends Application {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        this.mMeetingRepository = DI.createMeetingRepository();
+        this.mMeetingRepository = null;
     }
 }

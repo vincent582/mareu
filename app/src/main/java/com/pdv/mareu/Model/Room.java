@@ -2,34 +2,19 @@ package com.pdv.mareu.Model;
 
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Room {
     private String name;
-    private Boolean isAvailable;
-    private List<Meeting> mMeetingList = new ArrayList<>();
+    private String color;
 
-    public Room(String name, Boolean isAvailable) {
+    public Room(String name,String color) {
         this.name = name;
-        this.isAvailable = isAvailable;
+        this.color = color;
     }
 
     public String getName() {
         return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Boolean isAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(Boolean available) {
-        isAvailable = available;
-    }
+    public String getColor() { return color; }
 
     @NonNull
     @Override
@@ -37,7 +22,5 @@ public class Room {
         return this.name;
     }
 
-    public List<Meeting> getMeetingList() {
-        return mMeetingList;
-    }
+
 }

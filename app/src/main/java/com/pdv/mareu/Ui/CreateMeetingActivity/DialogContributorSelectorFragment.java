@@ -16,7 +16,6 @@ public class DialogContributorSelectorFragment extends DialogFragment {
 
     public interface DialogContributorListener{
         public void onDialogContributorValidateClick(DialogFragment dialog);
-        public void onDialogAddContributorClick(DialogFragment dialog);
         public void onDialogCancelContributor(DialogFragment dialog);
     }
 
@@ -29,23 +28,17 @@ public class DialogContributorSelectorFragment extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         builder.setView(R.layout.dialog_contributor)
         .setTitle("Ajouter des participants")
-        .setMessage("Entrez une adresse Email et cliquez sur \"ajouter\" !")
         .setNegativeButton("annuler", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 mListener.onDialogCancelContributor(DialogContributorSelectorFragment.this);
             }
         })
-        .setNeutralButton("Ajouter", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                mListener.onDialogAddContributorClick(DialogContributorSelectorFragment.this);
-            }
-        })
         .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 mListener.onDialogContributorValidateClick(DialogContributorSelectorFragment.this);
+                dialog.dismiss();
             }
         });
 

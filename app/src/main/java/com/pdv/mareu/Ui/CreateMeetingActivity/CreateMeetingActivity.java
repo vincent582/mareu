@@ -1,8 +1,6 @@
 package com.pdv.mareu.Ui.CreateMeetingActivity;
 
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.widget.Toast;
 
 import com.pdv.mareu.Base.BaseActivity;
 import com.pdv.mareu.R;
