@@ -42,7 +42,7 @@ public class MeetingItemViewHolder extends RecyclerView.ViewHolder {
 
     public void updateWithMeeting(Meeting meeting){
         this.pastil.getDrawable().setTint(Color.parseColor(meeting.getRoom().getColor()));
-        this.title.setText(meeting.getSubject()+" - "+meeting.getRoom() +" - "+meeting.getTime());
+        this.title.setText(meeting.getSubject()+" - "+meeting.getRoom() +" - "+meeting.getTime() + "\n"+meeting.getDate());
 
         List<String> mails = meeting.getMailContributor();
         for (int i = 0; i < mails.size(); i++) {
