@@ -22,6 +22,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -72,17 +73,17 @@ public class SortByDateInstrumentedTest {
      */
     private static Matcher<View> isSortedByDate(){
         return new TypeSafeMatcher<View>() {
-            private final List<String> mMeetingListDate = new ArrayList<>();
+            private final List<Date> mMeetingListDate = new ArrayList<>();
             @Override
             protected boolean matchesSafely(View item) {
                 RecyclerView recyclerView = (RecyclerView) item;
                 MeetingItemRecyclerViewAdapter meetingAdapter = (MeetingItemRecyclerViewAdapter) recyclerView.getAdapter();
                 mMeetingListDate.clear();
-                mMeetingListDate.addAll(getMeetingPlace(meetingAdapter.mMeetingList));
+                mMeetingListDate.addAll(getMeetingDate(meetingAdapter.mMeetingList));
                 return Ordering.natural().isOrdered(mMeetingListDate);
             }
-            private List<String> getMeetingPlace(List<Meeting> meetingList) {
-                List<String> meetingsDate = new ArrayList<>();
+            private List<Date> getMeetingDate(List<Meeting> meetingList) {
+                List<Date> meetingsDate = new ArrayList<>();
                 for (Meeting meeting : meetingList){
                     meetingsDate.add(meeting.getDate());
                 }

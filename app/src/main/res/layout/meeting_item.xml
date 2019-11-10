@@ -30,7 +30,7 @@
         android:layout_marginTop="@dimen/meeting_item_title_margin_top"
         android:layout_marginEnd="@dimen/meeting_item_title_margin_end"
         android:fontFamily="sans-serif-black"
-        android:text="Réunion A - 14h00 - Peach"
+        android:text="Réunion A - 2019-10-26 - 14h00 - Peach"
         android:textColor="#000000"
         android:textSize="@dimen/meeting_item_title_text_size"
         android:textStyle="normal"

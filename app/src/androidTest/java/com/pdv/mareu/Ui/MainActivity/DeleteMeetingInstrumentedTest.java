@@ -2,12 +2,14 @@ package com.pdv.mareu.Ui.MainActivity;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.pdv.mareu.ApiService.MeetingApiService;
+import com.pdv.mareu.Model.Meeting;
 import com.pdv.mareu.R;
 import com.pdv.mareu.Repository.MeetingRepository;
 import com.pdv.mareu.Ui.MainActivity.MainActivity;
@@ -18,14 +20,27 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.pdv.mareu.ApiService.MeetingGeneratorApi.MAILS;
+import static com.pdv.mareu.ApiService.MeetingGeneratorApi.ROOM_LIST;
+import static com.pdv.mareu.Ui.MainActivity.AddMeetingInstrumentedTest.childAtPosition;
 import static com.pdv.mareu.Utils.RecyclerViewItemCountAssertion.withItemCount;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.*;
 
@@ -33,7 +48,7 @@ import static org.junit.Assert.*;
 public class DeleteMeetingInstrumentedTest {
 
     private MeetingRepository mMeetingRepository;
-    private static int ITEMS_COUNT;
+    private int ITEMS_COUNT;
     private MainActivity mActivity;
 
     @Rule
@@ -67,7 +82,7 @@ public class DeleteMeetingInstrumentedTest {
         onView(ViewMatchers.withId(R.id.meeting_recycler_view)).check(withItemCount(ITEMS_COUNT));
         // When perform a click on a delete icon
         onView(ViewMatchers.withId(R.id.meeting_recycler_view))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteAction()));
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, new DeleteAction()));
         // Then : the number of element have one less.
         onView(ViewMatchers.withId(R.id.meeting_recycler_view)).check(withItemCount(ITEMS_COUNT-1));
     }

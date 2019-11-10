@@ -1,11 +1,8 @@
 package com.pdv.mareu.Ui.CreateMeetingActivity;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +49,7 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
     private String subjet;
     private String timeFormated;
     private String dateFormated;
+    private Date mDate;
     private Room selectedRoom;
     private List<String> mails = new ArrayList<String>();
 
@@ -151,7 +149,7 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
             Toast.makeText(getContext(),R.string.infoAddDateTimeToMeeting, Toast.LENGTH_SHORT).show();
         }
         else{
-            Meeting meeting = new Meeting(dateFormated,selectedRoom,subjet,mails,timeFormated);
+            Meeting meeting = new Meeting(mDate,selectedRoom,subjet,mails,timeFormated);
             mMeetingRepository.addMeeting(meeting);
             getActivity().finish();
         }
@@ -202,11 +200,14 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onDialogDatePikerValidateClick(DialogDatePickerFragment dialog) {
-        DatePicker date = (DatePicker) dialog.getDialog().findViewById(R.id.date_dp);
-        int day = date.getDayOfMonth();
-        int month = date.getMonth();
-        int year = date.getYear();
-        dateFormated = String.format("%d-%02d-%02d",year,month,day);
+        DatePicker datePicker = (DatePicker) dialog.getDialog().findViewById(R.id.date_dp);
+        int day = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth();
+        int year = datePicker.getYear();
+        dateFormated = String.format("%02d/%02d/%d",day,month+1,year);
         mDateSelectorBtn.setText(dateFormated);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+        mDate = calendar.getTime();
     }
 }

@@ -41,7 +41,7 @@ public class MeetingApiService implements MyMeetingApiService {
      Collections.sort(mMeetingList, new Comparator<Meeting>() {
          @Override
          public int compare(Meeting o1, Meeting o2) {
-             return o1.getDate().compareToIgnoreCase(o2.getDate());
+             return o1.getDate().compareTo(o2.getDate());
          }
      });
     }

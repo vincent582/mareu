@@ -8,9 +8,12 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public abstract class MeetingGeneratorApi {
+
+    public static Date mDate = Calendar.getInstance().getTime();
 
     public static List<String> MAILS = Arrays.asList(
             "Mario@gmail.com",
@@ -32,9 +35,8 @@ public abstract class MeetingGeneratorApi {
     );
 
     public static List<Meeting> FAKE_MEETING = Arrays.asList(
-        new Meeting("2019-10-26",ROOM_LIST.get(1),"Réunion 1", MAILS,"20H35"),
-        new Meeting("2019-11-12",ROOM_LIST.get(8),"Réunion 2", MAILS,"12H15"),
-        new Meeting("2019-10-02",ROOM_LIST.get(3),"Réunion 3", MAILS,"07H40")
+        new Meeting(mDate,ROOM_LIST.get(1),"Réunion 1", MAILS,"20H35"),
+        new Meeting(mDate,ROOM_LIST.get(4),"Réunion 2", MAILS,"09H25")
     );
 
     static List<Meeting> generateMeeting() {

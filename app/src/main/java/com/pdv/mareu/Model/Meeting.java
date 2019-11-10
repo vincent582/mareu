@@ -1,16 +1,18 @@
 package com.pdv.mareu.Model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class Meeting {
 
-    private String mDate;
+    private Date mDate;
     private Room room;
     private String subject;
     private List<String> mailContributor;
     private String mTime;
 
-    public Meeting(String date, Room room, String subject, List<String> mailContributor,String time) {
+    public Meeting(Date date, Room room, String subject, List<String> mailContributor, String time) {
         this.room = room;
         this.subject = subject;
         this.mailContributor = mailContributor;
@@ -27,6 +29,12 @@ public class Meeting {
     public List<String> getMailContributor() {
         return mailContributor;
     }
-    public String getDate() { return mDate; }
+    public Date getDate() { return mDate; }
     public String getTime() { return mTime; }
+
+    public String getDateFormated(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString = sdf.format(this.getDate());
+        return dateString;
+    }
 }
