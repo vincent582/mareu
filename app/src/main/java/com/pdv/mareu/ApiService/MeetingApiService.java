@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MeetingApiService implements MyMeetingApiService {
 
-    private List<Meeting> mMeetingList = MeetingGeneratorApi.generateMeeting();
+    private List<Meeting> mMeetingList = MeetingGeneratorApi.generateMeetings();
     private List<Room> mRoomList = MeetingGeneratorApi.generateRooms();
 
     @Override

@@ -11,7 +11,6 @@ import com.pdv.mareu.Ui.CreateMeetingActivity.CreateMeetingActivity;
 
 public class MainActivity extends BaseActivity {
 
-    MeetingFragment mMeetingFragment;
     FloatingActionButton add_meeting_fab;
 
     @Override
@@ -27,14 +26,11 @@ public class MainActivity extends BaseActivity {
      * Configure the fragment Meeting to show in main activity
      */
     private void configureFragment() {
-        mMeetingFragment = (MeetingFragment) getSupportFragmentManager().findFragmentById(R.id.container_main);
-        if (mMeetingFragment == null) {
-            MeetingFragment fragment = new MeetingFragment();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.container_main, fragment)
-                    .commit();
-        }
+        MeetingFragment fragment = new MeetingFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.container_main, fragment)
+                .commit();
     }
 
     private void configureToolbar() {

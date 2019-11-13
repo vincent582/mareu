@@ -1,16 +1,8 @@
 package com.pdv.mareu.Ui.MainActivity;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,7 +34,7 @@ public class MeetingItemViewHolder extends RecyclerView.ViewHolder {
 
     public void updateWithMeeting(Meeting meeting){
         this.pastil.getDrawable().setTint(Color.parseColor(meeting.getRoom().getColor()));
-        this.title.setText(meeting.getSubject()+" - "+meeting.getRoom() +" - "+meeting.getTime() + "\n"+meeting.getDateFormated());
+        this.title.setText(meeting.getSubject()+" - "+meeting.getRoom() +" - "+meeting.getTimeFormated() + "\n"+meeting.getDateFormated());
 
         List<String> mails = meeting.getMailContributor();
         for (int i = 0; i < mails.size(); i++) {

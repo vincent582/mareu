@@ -13,14 +13,6 @@ import java.util.List;
 
 public abstract class MeetingGeneratorApi {
 
-    public static Date mDate = Calendar.getInstance().getTime();
-
-    public static List<String> MAILS = Arrays.asList(
-            "Mario@gmail.com",
-            "Luigi@gmail.com",
-            "peach@gmail.com"
-    );
-
     public static List<Room> ROOM_LIST = Arrays.asList(
             new Room("Salle 1","#E9D0C6"),
             new Room("Salle 2","#9ABCA4"),
@@ -34,13 +26,21 @@ public abstract class MeetingGeneratorApi {
             new Room("Salle 10","#9ABCA4")
     );
 
+    public static Date mDate = Calendar.getInstance().getTime();
+    public static List<String> MAILS = Arrays.asList(
+            "Mario@gmail.com",
+            "Luigi@gmail.com",
+            "peach@gmail.com"
+    );
     public static List<Meeting> FAKE_MEETING = Arrays.asList(
-        new Meeting(mDate,ROOM_LIST.get(1),"Réunion 1", MAILS,"20H35"),
-        new Meeting(mDate,ROOM_LIST.get(4),"Réunion 2", MAILS,"09H25")
+        new Meeting(mDate,ROOM_LIST.get(1),"Réunion 1", MAILS),
+        new Meeting(mDate,ROOM_LIST.get(4),"Réunion 2", MAILS)
     );
 
-    static List<Meeting> generateMeeting() {
-        return new ArrayList<>(FAKE_MEETING);
+    public static List<Meeting> MEETINGS = Arrays.asList();
+
+    static List<Meeting> generateMeetings() {
+        return new ArrayList<>(MEETINGS);
     }
     static List<Room> generateRooms(){ return new ArrayList<>(ROOM_LIST);}
 }

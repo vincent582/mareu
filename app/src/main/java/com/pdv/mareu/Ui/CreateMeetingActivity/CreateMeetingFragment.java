@@ -3,6 +3,7 @@ package com.pdv.mareu.Ui.CreateMeetingActivity;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +18,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.pdv.mareu.ApiService.MeetingGeneratorApi;
 import com.pdv.mareu.Base.BaseActivity;
 import com.pdv.mareu.Model.Meeting;
 import com.pdv.mareu.Model.Room;
 import com.pdv.mareu.R;
 import com.pdv.mareu.Repository.MeetingRepository;
-import com.pdv.mareu.Ui.MainActivity.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,9 +48,16 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
     private String subjet;
     private String timeFormated;
     private String dateFormated;
-    private Date mDate;
     private Room selectedRoom;
     private List<String> mails = new ArrayList<String>();
+
+    private Calendar calendar = Calendar.getInstance();
+    private Date mDate;
+    private int mDay;
+    private int mMonth;
+    private int mYear;
+    private int mHours;
+    private int mMinutes;
 
     private final int TAG_BUTTON_CONTRIBUTOR = 0;
     private final int TAG_BUTTON_TIME = 1;
@@ -143,17 +149,45 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
     private void createMeeting() {
         subjet = mMeetingSubject.getText().toString();
         if (subjet.isEmpty()){
-            Toast.makeText(getContext(),R.string.infoAddSubjectToMeeting, Toast.LENGTH_SHORT).show();
+            mMeetingSubject.setError(getText(R.string.infoAddSubjectToMeeting));
         }
         else if((timeFormated == null) || (dateFormated == null)){
             Toast.makeText(getContext(),R.string.infoAddDateTimeToMeeting, Toast.LENGTH_SHORT).show();
         }
         else{
-            Meeting meeting = new Meeting(mDate,selectedRoom,subjet,mails,timeFormated);
-            mMeetingRepository.addMeeting(meeting);
-            getActivity().finish();
+            calendar.set(mYear,mMonth,mDay,mHours,mMinutes);
+            mDate = calendar.getTime();
+
+            if(checkIfRoomAvailable(mDate, selectedRoom)){
+                Meeting meeting = new Meeting(mDate,selectedRoom,subjet,mails);
+                mMeetingRepository.addMeeting(meeting);
+                getActivity().finish();
+            }
+            else {
+                Toast.makeText(getContext(),R.string.infoMeetingRoom, Toast.LENGTH_SHORT).show();
+            }
         }
     }
+
+    private boolean checkIfRoomAvailable(Date date, Room selectedRoom) {
+        Boolean available = true;
+        List<Meeting> meetingList = mMeetingRepository.getMeetingsList();
+
+        for (Meeting meeting: meetingList) {
+            if (meeting.getRoom() == selectedRoom){
+                calendar.setTime(meeting.getDate());
+                calendar.add(Calendar.MINUTE, -45);
+                Date timeBefore = calendar.getTime();
+                calendar.add(Calendar.MINUTE, 90);
+                Date timeFinish = calendar.getTime();
+                if (date.compareTo(timeBefore) == 1 && date.compareTo(timeFinish) == -1){
+                    available = false;
+                }
+            }
+        }
+        return available;
+    }
+
 
     public void showListContributor(){
         mContributorList.setVisibility(View.VISIBLE);
@@ -191,9 +225,9 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
     @Override
     public void onDialogTimePikerValidateClick(DialogFragment dialog) {
         TimePicker time = (TimePicker) dialog.getDialog().findViewById(R.id.time_dp);
-        int hour = time.getCurrentHour();
-        int minute = time.getCurrentMinute();
-        timeFormated = String.format("%02dh%02d", hour, minute);
+        mHours = time.getCurrentHour();
+        mMinutes = time.getCurrentMinute();
+        timeFormated = String.format("%02dh%02d", mHours, mMinutes);
         mMeetingSelectTime.setText(timeFormated);
         Toast.makeText(this.getContext(),R.string.choiceConfirmed,Toast.LENGTH_SHORT).show();
     }
@@ -201,13 +235,10 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
     @Override
     public void onDialogDatePikerValidateClick(DialogDatePickerFragment dialog) {
         DatePicker datePicker = (DatePicker) dialog.getDialog().findViewById(R.id.date_dp);
-        int day = datePicker.getDayOfMonth();
-        int month = datePicker.getMonth();
-        int year = datePicker.getYear();
-        dateFormated = String.format("%02d/%02d/%d",day,month+1,year);
+        mDay = datePicker.getDayOfMonth();
+        mMonth = datePicker.getMonth();
+        mYear = datePicker.getYear();
+        dateFormated = String.format("%02d/%02d/%d",mDay,mMonth+1,mYear);
         mDateSelectorBtn.setText(dateFormated);
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-        mDate = calendar.getTime();
     }
 }

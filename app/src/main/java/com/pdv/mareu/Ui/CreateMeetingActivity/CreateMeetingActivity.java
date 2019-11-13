@@ -18,5 +18,4 @@ public class CreateMeetingActivity extends BaseActivity {
                 .add(R.id.create_activity_main_layout, fragment)
                 .commit();
     }
-
 }

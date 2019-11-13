@@ -11,6 +11,8 @@ import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+
+import static com.pdv.mareu.ApiService.MeetingGeneratorApi.FAKE_MEETING;
 import static com.pdv.mareu.ApiService.MeetingGeneratorApi.MAILS;
 import static com.pdv.mareu.ApiService.MeetingGeneratorApi.ROOM_LIST;
 import static org.junit.Assert.*;
@@ -59,19 +61,15 @@ public class MainActivityUnitTest {
     @Test
     public void sortByPlaceMeeting(){
         Meeting mMeeting = new Meeting(currentTime,ROOM_LIST.get(4),"Réunion Test", MAILS,"09H25");
-        Meeting mMeeting1 = new Meeting(currentTime,ROOM_LIST.get(4),"Réunion Test", MAILS,"09H25");
+        Meeting mMeeting1 = new Meeting(currentTime,ROOM_LIST.get(5),"Réunion Test", MAILS,"19H30");
+
         mMeetingRepository.addMeeting(mMeeting);
         mMeetingRepository.addMeeting(mMeeting1);
-        List<Meeting> listTosort = mMeetingList;
+
         mMeetingRepository.sortByPlace();
-        listTosort.sort(new Comparator<Meeting>() {
-            @Override
-            public int compare(Meeting m1, Meeting m2) {
-                return String.valueOf(m1.getRoom().getName()).compareTo(String.valueOf(m2.getRoom().getName()));
-            }
-        });
-        assertTrue(mMeetingList.equals(listTosort));
-        assertEquals(mMeetingList.get(1).getRoom(),listTosort.get(1).getRoom());
+
+        assertEquals(mMeetingRepository.getMeetingsList().get(0).getRoom().getName(),mMeeting.getRoom().getName());
+        assertEquals(mMeetingRepository.getMeetingsList().get(1).getRoom().getName(),mMeeting1.getRoom().getName());
     }
 
     /**
