@@ -1,18 +1,12 @@
 package com.pdv.mareu.Ui.MainActivity;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.pdv.mareu.ApiService.MeetingApiService;
 import com.pdv.mareu.Model.Meeting;
 import com.pdv.mareu.R;
-import com.pdv.mareu.Repository.MeetingRepository;
-import com.pdv.mareu.Ui.MainActivity.MainActivity;
 import com.pdv.mareu.Utils.DeleteAction;
 
 import org.junit.Before;
@@ -20,36 +14,21 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.replaceText;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.pdv.mareu.ApiService.MeetingGeneratorApi.MAILS;
-import static com.pdv.mareu.ApiService.MeetingGeneratorApi.ROOM_LIST;
-import static com.pdv.mareu.Ui.MainActivity.AddMeetingInstrumentedTest.childAtPosition;
+import static com.pdv.mareu.ApiService.MeetingGeneratorApi.FAKE_MEETING;
 import static com.pdv.mareu.Utils.RecyclerViewItemCountAssertion.withItemCount;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNull.notNullValue;
-import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
 public class DeleteMeetingInstrumentedTest {
 
-    private MeetingRepository mMeetingRepository;
-    private int ITEMS_COUNT;
     private MainActivity mActivity;
+    private int ITEM_COUNT;
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule =
@@ -59,8 +38,12 @@ public class DeleteMeetingInstrumentedTest {
     public void setUp() {
         mActivity = mActivityRule.getActivity();
         assertThat(mActivity, notNullValue());
-        mMeetingRepository = new MeetingRepository(new MeetingApiService());
-        ITEMS_COUNT = mMeetingRepository.getMeetingsList().size();
+        List<Meeting> fake_meeting = FAKE_MEETING;
+        for (Meeting meeting: fake_meeting) {
+            mActivity.getMeetingRepository().addMeeting(meeting);
+        }
+        List<Meeting> meetingList = mActivity.getMeetingRepository().getMeetingsList();
+        ITEM_COUNT = meetingList.size();
     }
 
     /**
@@ -79,11 +62,11 @@ public class DeleteMeetingInstrumentedTest {
     @Test
     public void meetingList_deleteAction_shouldRemoveItem() {
         // Given : We remove the element at position selected
-        onView(ViewMatchers.withId(R.id.meeting_recycler_view)).check(withItemCount(ITEMS_COUNT));
+        onView(ViewMatchers.withId(R.id.meeting_recycler_view)).check(withItemCount(ITEM_COUNT));
         // When perform a click on a delete icon
         onView(ViewMatchers.withId(R.id.meeting_recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, new DeleteAction()));
         // Then : the number of element have one less.
-        onView(ViewMatchers.withId(R.id.meeting_recycler_view)).check(withItemCount(ITEMS_COUNT-1));
+        onView(ViewMatchers.withId(R.id.meeting_recycler_view)).check(withItemCount(ITEM_COUNT -1));
     }
 }

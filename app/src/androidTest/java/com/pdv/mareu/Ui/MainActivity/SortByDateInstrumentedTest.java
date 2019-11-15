@@ -17,6 +17,7 @@ import com.pdv.mareu.R;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,18 +29,33 @@ import java.util.List;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.pdv.mareu.ApiService.MeetingGeneratorApi.FAKE_MEETING;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.core.IsNull.notNullValue;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class SortByDateInstrumentedTest {
 
+    private MainActivity mActivity;
+
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+
+    @Before
+    public void setUp() {
+        mActivity = mActivityTestRule.getActivity();
+        assertThat(mActivity, notNullValue());
+        List<Meeting> fake_meeting = FAKE_MEETING;
+        for (Meeting meeting: fake_meeting) {
+            mActivity.getMeetingRepository().addMeeting(meeting);
+        }
+    }
 
     @Test
     public void sortByDateInstrumentedTest() {
