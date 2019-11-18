@@ -30,9 +30,7 @@ public class MeetingRepository {
         return roomList;
     }
 
-    public void sortByDate(){ mMeetingApiService.sortByDate(); }
+    public List<Meeting> sortByDate(String date){ return mMeetingApiService.sortByDate(date);}
 
-    public void sortByPlace(){
-        mMeetingApiService.sortByPlace();
-    }
+    public List<Meeting> sortByPlace(String place){ return mMeetingApiService.sortByPlace(place);}
 }

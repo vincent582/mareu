@@ -56,7 +56,7 @@ public abstract class MeetingGeneratorApi {
     public static Date mDate2 = oneHourMoreToDate();
 
     public static Date oneHourMoreToDate(){
-        mCalendar.add(Calendar.HOUR,2);
+        mCalendar.add(Calendar.DATE,2);
         mDate2 = mCalendar.getTime();
         return mDate2;
     }
@@ -67,7 +67,7 @@ public abstract class MeetingGeneratorApi {
             "peach@gmail.com"
     );
     public static List<Meeting> FAKE_MEETING = Arrays.asList(
-            new Meeting(mDate2,ROOM_LIST.get(7),"Réunion 1", MAILS),
-            new Meeting(mDate,ROOM_LIST.get(4),"Réunion 2", MAILS)
+            new Meeting(mDate,ROOM_LIST.get(7),"Réunion 1", MAILS),
+            new Meeting(mDate2,ROOM_LIST.get(1),"Réunion 2", MAILS)
     );
 }

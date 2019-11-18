@@ -3,7 +3,6 @@ package com.pdv.mareu.Ui.CreateMeetingActivity;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +22,9 @@ import com.pdv.mareu.Model.Meeting;
 import com.pdv.mareu.Model.Room;
 import com.pdv.mareu.R;
 import com.pdv.mareu.Repository.MeetingRepository;
+import com.pdv.mareu.Utils.Dialog.DialogContributorSelectorFragment;
+import com.pdv.mareu.Utils.Dialog.DialogDatePickerFragment;
+import com.pdv.mareu.Utils.Dialog.DialogTimePikerFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;

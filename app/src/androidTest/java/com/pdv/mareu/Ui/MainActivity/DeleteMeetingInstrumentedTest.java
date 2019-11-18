@@ -38,8 +38,7 @@ public class DeleteMeetingInstrumentedTest {
     public void setUp() {
         mActivity = mActivityRule.getActivity();
         assertThat(mActivity, notNullValue());
-        List<Meeting> fake_meeting = FAKE_MEETING;
-        for (Meeting meeting: fake_meeting) {
+        for (Meeting meeting: FAKE_MEETING) {
             mActivity.getMeetingRepository().addMeeting(meeting);
         }
         List<Meeting> meetingList = mActivity.getMeetingRepository().getMeetingsList();

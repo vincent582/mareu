@@ -18,8 +18,8 @@
                 ></item>
             <item
                 android:title="Trier par lieu"
-                android:id="@+id/sort_by_place_item"
-                ></item>
+                android:id="@+id/sort_by_place_item">
+            </item>
         </menu>
     </item>
 

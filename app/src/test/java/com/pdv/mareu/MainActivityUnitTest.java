@@ -3,6 +3,7 @@ package com.pdv.mareu;
 import com.pdv.mareu.ApiService.MeetingApiService;
 import com.pdv.mareu.Model.Meeting;
 import com.pdv.mareu.Repository.MeetingRepository;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -54,52 +55,54 @@ public class MainActivityUnitTest {
 
 
     /**
-     * Sort the list by place, and sort.
-     * then check if items are at good position.
+     * Filter list by place.
+     * And check if meetings filtered have room expected.
      */
     @Test
     public void sortByPlaceMeeting(){
-        Meeting m1 = new Meeting(currentTime,ROOM_LIST.get(5),"Réunion Test", MAILS);
-        Meeting m2 = new Meeting(currentTime,ROOM_LIST.get(8),"Réunion Test", MAILS);
-        Meeting m3 = new Meeting(currentTime,ROOM_LIST.get(2),"Réunion Test", MAILS);
+        String placeFilter = "Salle 1";
+        Meeting m1 = new Meeting(currentTime,ROOM_LIST.get(0),"Réunion Test", MAILS);
+        Meeting m2 = new Meeting(currentTime,ROOM_LIST.get(5),"Réunion Test", MAILS);
+        Meeting m3 = new Meeting(currentTime,ROOM_LIST.get(0),"Réunion Test", MAILS);
         mMeetingRepository.addMeeting(m1);
         mMeetingRepository.addMeeting(m2);
         mMeetingRepository.addMeeting(m3);
 
-        mMeetingRepository.sortByPlace();
+        List<Meeting> meetingList = mMeetingRepository.sortByPlace(placeFilter);
 
-        assertEquals(mMeetingRepository.getMeetingsList().get(0).getRoom().getName(), m3.getRoom().getName());
-        assertEquals(mMeetingRepository.getMeetingsList().get(1).getRoom().getName(), m1.getRoom().getName());
-        assertEquals(mMeetingRepository.getMeetingsList().get(2).getRoom().getName(), m2.getRoom().getName());
+        assertTrue(meetingList.size() == 2);
+        for (Meeting m: meetingList) {
+            assertEquals(m.getRoom().toString(),placeFilter);
+        }
     }
 
     /**
-     * Copy the list of meeting inside new one.
-     * Sort the list by Date, and sort the new one by comparator.
-     * then check if lists are equals and the item at position too.
+     * Filter the list by Date, and return array of meetings.
+     * then check if size list is equals and the meeting have correct date.
      */
     @Test
     public void sortByDateMeeting(){
-        mCalendar.set(2019,11,18);
+        String dateFilter = "18/11/2019";
+        //month in calendar is an array start to 0: November == 10.
+        mCalendar.set(2019,10,18);
         Date date = mCalendar.getTime();
         mCalendar.set(2019,11,27);
         Date date1 = mCalendar.getTime();
-        mCalendar.set(2019,11,15);
-        Date date2 = mCalendar.getTime();
 
         Meeting m1 = new Meeting(date,ROOM_LIST.get(5),"Réunion Test", MAILS);
         Meeting m2 = new Meeting(date1,ROOM_LIST.get(8),"Réunion Test", MAILS);
-        Meeting m3 = new Meeting(date2,ROOM_LIST.get(2),"Réunion Test", MAILS);
+        Meeting m3 = new Meeting(date,ROOM_LIST.get(2),"Réunion Test", MAILS);
 
         mMeetingRepository.addMeeting(m1);
         mMeetingRepository.addMeeting(m2);
         mMeetingRepository.addMeeting(m3);
 
-        mMeetingRepository.sortByDate();
+        List<Meeting> meetingList = mMeetingRepository.sortByDate(dateFilter);
 
-        assertEquals(mMeetingRepository.getMeetingsList().get(0).getDate(), m3.getDate());
-        assertEquals(mMeetingRepository.getMeetingsList().get(1).getDate(), m1.getDate());
-        assertEquals(mMeetingRepository.getMeetingsList().get(2).getDate(), m2.getDate());
+        assertEquals(2, meetingList.size());
+        for (Meeting m:meetingList) {
+            assertEquals(m.getDateFormated(), dateFilter);
+        }
     }
 
 }

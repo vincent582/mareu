@@ -1,4 +1,4 @@
-package com.pdv.mareu.Event;
+package com.pdv.mareu.Utils.Event;
 
 import com.pdv.mareu.Model.Meeting;
 

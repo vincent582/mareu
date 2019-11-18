@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.pdv.mareu.Event.DeleteMeetingEvent;
+import com.pdv.mareu.Utils.Event.DeleteMeetingEvent;
 import com.pdv.mareu.Model.Meeting;
 import com.pdv.mareu.R;
 

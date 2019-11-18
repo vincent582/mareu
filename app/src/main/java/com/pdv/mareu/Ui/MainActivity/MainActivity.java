@@ -11,7 +11,7 @@ import com.pdv.mareu.Ui.CreateMeetingActivity.CreateMeetingActivity;
 
 public class MainActivity extends BaseActivity {
 
-    FloatingActionButton add_meeting_fab;
+    public FloatingActionButton add_meeting_fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

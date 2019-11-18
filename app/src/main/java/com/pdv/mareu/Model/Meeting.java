@@ -31,7 +31,7 @@ public class Meeting {
 
     public String getDateFormated(){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String dateString = sdf.format(this.getDate());
+        String dateString = sdf.format(mDate);
         return dateString;
     }
 

@@ -1,14 +1,11 @@
 package com.pdv.mareu.ApiService;
 
+import android.util.Log;
+
 import com.pdv.mareu.Model.Meeting;
 import com.pdv.mareu.Model.Room;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 public class MeetingApiService implements MyMeetingApiService {
@@ -37,22 +34,25 @@ public class MeetingApiService implements MyMeetingApiService {
     }
 
     @Override
-    public void sortByDate() {
-     Collections.sort(mMeetingList, new Comparator<Meeting>() {
-         @Override
-         public int compare(Meeting o1, Meeting o2) {
-             return o1.getDate().compareTo(o2.getDate());
-         }
-     });
+    public List<Meeting> sortByDate(String date) {
+        List<Meeting> meetingListByDate = new ArrayList<>();
+        for (Meeting meeting: mMeetingList) {
+            Log.e("TAG", "sortByDate: "+ meeting.getDateFormated() + " " +date);
+            if (meeting.getDateFormated().equals(date)){
+                meetingListByDate.add(meeting);
+            }
+        }
+        return meetingListByDate;
     }
 
     @Override
-    public void sortByPlace() {
-        Collections.sort(mMeetingList, new Comparator<Meeting>() {
-            @Override
-            public int compare(Meeting o1, Meeting o2) {
-                return String.valueOf(o1.getRoom().getName()).compareToIgnoreCase(String.valueOf(o2.getRoom().getName()));
+    public List<Meeting> sortByPlace(String place) {
+        List<Meeting> meetingListByPlace = new ArrayList<>();
+        for (Meeting meeting: mMeetingList) {
+            if (meeting.getRoom().toString() == place){
+                meetingListByPlace.add(meeting);
             }
-        });
+        }
+        return meetingListByPlace;
     }
 }

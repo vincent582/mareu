@@ -1,4 +1,4 @@
-package com.pdv.mareu.Ui.CreateMeetingActivity;
+package com.pdv.mareu.Utils.Dialog;
 
 
 import android.app.AlertDialog;
