@@ -30,6 +30,10 @@ public class MeetingItemRecyclerViewAdapter extends RecyclerView.Adapter<Meeting
         return new MeetingItemViewHolder(view);
     }
 
+    public void updateList(List<Meeting> meetingList){
+        this.mMeetingList = meetingList;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull MeetingItemViewHolder meetingItemViewHolder, final int i) {
         meetingItemViewHolder.updateWithMeeting(this.mMeetingList.get(i));

@@ -16,7 +16,6 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 
 import com.pdv.mareu.Base.BaseActivity;
-import com.pdv.mareu.Model.Meeting;
 import com.pdv.mareu.Model.Room;
 import com.pdv.mareu.R;
 import com.pdv.mareu.Repository.MeetingRepository;
@@ -30,7 +29,6 @@ import org.greenrobot.eventbus.Subscribe;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +37,7 @@ public class MeetingFragment extends Fragment implements DialogDatePickerFragmen
 
     private MeetingRepository mMeetingRepository;
     private RecyclerView mRecyclerView;
+    private MeetingItemRecyclerViewAdapter adapter;
     private FloatingActionButton restoreDataFab;
 
     @Override
@@ -54,6 +53,7 @@ public class MeetingFragment extends Fragment implements DialogDatePickerFragmen
         View view = inflater.inflate(R.layout.fragment_main_activity, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.meeting_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         restoreDataFab = getActivity().findViewById(R.id.back_filter_meeting_fab);
         initList();
 
@@ -66,7 +66,6 @@ public class MeetingFragment extends Fragment implements DialogDatePickerFragmen
         return view;
     }
 
-    @SuppressLint("RestrictedApi")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
@@ -84,23 +83,22 @@ public class MeetingFragment extends Fragment implements DialogDatePickerFragmen
 
     @SuppressLint("RestrictedApi")
     private void initList() {
-        List<Meeting> mMeetings = mMeetingRepository.getMeetingsList();
-        mRecyclerView.setAdapter(new MeetingItemRecyclerViewAdapter(mMeetings));
+        adapter = new MeetingItemRecyclerViewAdapter(mMeetingRepository.getMeetingsList());
+        mRecyclerView.setAdapter(adapter);
         restoreDataFab.setVisibility(View.INVISIBLE);
     }
 
     @SuppressLint("RestrictedApi")
     private void sortListByDate(String dateString){
-        List<Meeting> mMeetingListFilterByDate = mMeetingRepository.sortByDate(dateString);
-        Log.i("TAG", "sortListByDate: "+ mMeetingListFilterByDate);
-        mRecyclerView.setAdapter(new MeetingItemRecyclerViewAdapter(mMeetingListFilterByDate));
+        adapter.updateList(mMeetingRepository.sortByDate(dateString));
+        mRecyclerView.setAdapter(adapter);
         restoreDataFab.setVisibility(View.VISIBLE);
     }
 
     @SuppressLint("RestrictedApi")
     private void sortListByPlace(String place){
-        List<Meeting> mMeetingListFilterByPlace = mMeetingRepository.sortByPlace(place);
-        mRecyclerView.setAdapter(new MeetingItemRecyclerViewAdapter(mMeetingListFilterByPlace));
+        adapter.updateList(mMeetingRepository.sortByPlace(place));
+        mRecyclerView.setAdapter(adapter);
         restoreDataFab.setVisibility(View.VISIBLE);
     }
 
