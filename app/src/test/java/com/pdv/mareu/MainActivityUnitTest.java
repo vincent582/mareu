@@ -60,7 +60,7 @@ public class MainActivityUnitTest {
      */
     @Test
     public void sortByPlaceMeeting(){
-        String placeFilter = "Salle 1";
+        String placeFilter = "Salle 1";//ROOM_LIST id = 0.
         Meeting m1 = new Meeting(currentTime,ROOM_LIST.get(0),"Réunion Test", MAILS);
         Meeting m2 = new Meeting(currentTime,ROOM_LIST.get(5),"Réunion Test", MAILS);
         Meeting m3 = new Meeting(currentTime,ROOM_LIST.get(0),"Réunion Test", MAILS);

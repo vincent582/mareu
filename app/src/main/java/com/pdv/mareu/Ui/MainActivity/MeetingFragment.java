@@ -7,7 +7,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,6 +54,7 @@ public class MeetingFragment extends Fragment implements DialogDatePickerFragmen
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         restoreDataFab = getActivity().findViewById(R.id.back_filter_meeting_fab);
+
         initList();
 
         restoreDataFab.setOnClickListener(new View.OnClickListener() {
@@ -156,7 +156,6 @@ public class MeetingFragment extends Fragment implements DialogDatePickerFragmen
     public void onDialogPlaceSpinnerValidateClick(DialogFragment dialog) {
         Spinner spinner = (Spinner) dialog.getDialog().findViewById(R.id.dialog_room_spinner_sp);
         Room room = (Room) spinner.getSelectedItem();
-        Log.i("TAG", "onDialogPlaceSpinnerValidateClick: "+ room.toString());
         sortListByPlace(room.toString());
     }
 }

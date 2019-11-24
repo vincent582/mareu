@@ -2,8 +2,9 @@
 <resources>
     <color name="colorPrimary">#417BCA</color>
     <color name="colorPrimaryDark">#3463A5</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#E0E0E0</color>
     <color name="colorMeetingRoom1">#9ABCA4</color>
     <color name="colorMeetingRoom2">#E9D0C6</color>
     <color name="colorFabAddMeeting">#CA0227</color>
+    <color name="colorGray">#E0E0E0</color>
 </resources>
