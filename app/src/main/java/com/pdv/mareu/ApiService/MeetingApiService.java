@@ -34,10 +34,10 @@ public class MeetingApiService implements MyMeetingApiService {
     }
 
     @Override
-    public List<Meeting> sortByDate(String date) {
+    public List<Meeting> filterByDate(String date) {
         List<Meeting> meetingListByDate = new ArrayList<>();
         for (Meeting meeting: mMeetingList) {
-            Log.e("TAG", "sortByDate: "+ meeting.getDateFormated() + " " +date);
+            Log.e("TAG", "filterByDate: "+ meeting.getDateFormated() + " " +date);
             if (meeting.getDateFormated().equals(date)){
                 meetingListByDate.add(meeting);
             }
@@ -46,7 +46,7 @@ public class MeetingApiService implements MyMeetingApiService {
     }
 
     @Override
-    public List<Meeting> sortByPlace(String place) {
+    public List<Meeting> filterByPlace(String place) {
         List<Meeting> meetingListByPlace = new ArrayList<>();
         for (Meeting meeting: mMeetingList) {
             if (meeting.getRoom().toString() == place){

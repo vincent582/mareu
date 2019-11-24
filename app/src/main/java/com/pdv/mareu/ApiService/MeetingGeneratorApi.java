@@ -67,7 +67,7 @@ public abstract class MeetingGeneratorApi {
             "peach@gmail.com"
     );
     public static List<Meeting> FAKE_MEETING = Arrays.asList(
-            new Meeting(mDate,ROOM_LIST.get(7),"Réunion 1", MAILS),
+            new Meeting(mDate,ROOM_LIST.get(0),"Réunion 1", MAILS),
             new Meeting(mDate2,ROOM_LIST.get(1),"Réunion 2", MAILS)
     );
 }

@@ -70,10 +70,10 @@ public class MeetingFragment extends Fragment implements DialogDatePickerFragmen
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
         switch (item.getItemId()){
-            case R.id.sort_by_date_item:
+            case R.id.filter_by_date_item:
                 showDatePikerDialog();
                 return true;
-            case R.id.sort_by_place_item:
+            case R.id.filter_by_place_item:
                 showSpinnerPlaceDialog();
                 return true;
             default:
@@ -89,15 +89,15 @@ public class MeetingFragment extends Fragment implements DialogDatePickerFragmen
     }
 
     @SuppressLint("RestrictedApi")
-    private void sortListByDate(String dateString){
-        adapter.updateList(mMeetingRepository.sortByDate(dateString));
+    private void filterListByDate(String dateString){
+        adapter.updateList(mMeetingRepository.filterByDate(dateString));
         mRecyclerView.setAdapter(adapter);
         restoreDataFab.setVisibility(View.VISIBLE);
     }
 
     @SuppressLint("RestrictedApi")
-    private void sortListByPlace(String place){
-        adapter.updateList(mMeetingRepository.sortByPlace(place));
+    private void filterListByPlace(String place){
+        adapter.updateList(mMeetingRepository.filterByPlace(place));
         mRecyclerView.setAdapter(adapter);
         restoreDataFab.setVisibility(View.VISIBLE);
     }
@@ -149,14 +149,14 @@ public class MeetingFragment extends Fragment implements DialogDatePickerFragmen
         Date date = calendar.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String dateString = sdf.format(date);
-        sortListByDate(dateString);
+        filterListByDate(dateString);
     }
 
     @Override
     public void onDialogPlaceSpinnerValidateClick(DialogFragment dialog) {
         Spinner spinner = (Spinner) dialog.getDialog().findViewById(R.id.dialog_room_spinner_sp);
         Room room = (Room) spinner.getSelectedItem();
-        sortListByPlace(room.toString());
+        filterListByPlace(room.toString());
     }
 }
 

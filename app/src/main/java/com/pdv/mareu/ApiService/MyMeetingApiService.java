@@ -15,7 +15,7 @@ public interface MyMeetingApiService {
 
     List<Room> getRooms();
 
-    List<Meeting> sortByDate(String date);
+    List<Meeting> filterByDate(String date);
 
-    List<Meeting> sortByPlace(String place);
+    List<Meeting> filterByPlace(String place);
 }

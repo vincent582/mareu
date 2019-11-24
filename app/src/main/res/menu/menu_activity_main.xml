@@ -14,11 +14,11 @@
         <menu>
             <item
                 android:title="Filtrer par date"
-                android:id="@+id/sort_by_date_item"
+                android:id="@+id/filter_by_date_item"
                 ></item>
             <item
                 android:title="Filtrer par lieu"
-                android:id="@+id/sort_by_place_item">
+                android:id="@+id/filter_by_place_item">
             </item>
         </menu>
     </item>

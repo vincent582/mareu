@@ -59,7 +59,7 @@ public class MainActivityUnitTest {
      * And check if meetings filtered have room expected.
      */
     @Test
-    public void sortByPlaceMeeting(){
+    public void filterByPlaceMeeting(){
         String placeFilter = "Salle 1";//ROOM_LIST id = 0.
         Meeting m1 = new Meeting(currentTime,ROOM_LIST.get(0),"Réunion Test", MAILS);
         Meeting m2 = new Meeting(currentTime,ROOM_LIST.get(5),"Réunion Test", MAILS);
@@ -68,7 +68,7 @@ public class MainActivityUnitTest {
         mMeetingRepository.addMeeting(m2);
         mMeetingRepository.addMeeting(m3);
 
-        List<Meeting> meetingList = mMeetingRepository.sortByPlace(placeFilter);
+        List<Meeting> meetingList = mMeetingRepository.filterByPlace(placeFilter);
 
         assertTrue(meetingList.size() == 2);
         for (Meeting m: meetingList) {
@@ -81,7 +81,7 @@ public class MainActivityUnitTest {
      * then check if size list is equals and the meeting have correct date.
      */
     @Test
-    public void sortByDateMeeting(){
+    public void filterByDateMeeting(){
         String dateFilter = "18/11/2019";
         //month in calendar is an array start to 0: November == 10.
         mCalendar.set(2019,10,18);
@@ -97,7 +97,7 @@ public class MainActivityUnitTest {
         mMeetingRepository.addMeeting(m2);
         mMeetingRepository.addMeeting(m3);
 
-        List<Meeting> meetingList = mMeetingRepository.sortByDate(dateFilter);
+        List<Meeting> meetingList = mMeetingRepository.filterByDate(dateFilter);
 
         assertEquals(2, meetingList.size());
         for (Meeting m:meetingList) {

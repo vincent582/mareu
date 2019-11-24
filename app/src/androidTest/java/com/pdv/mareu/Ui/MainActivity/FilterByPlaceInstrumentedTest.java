@@ -1,7 +1,6 @@
 package com.pdv.mareu.Ui.MainActivity;
 
 
-import android.support.test.espresso.DataInteraction;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.filters.LargeTest;
@@ -22,9 +21,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.List;
-
-import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
@@ -35,13 +31,12 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.pdv.mareu.ApiService.MeetingGeneratorApi.FAKE_MEETING;
 import static com.pdv.mareu.Utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class SortByPlaceInstrumentedTest {
+public class FilterByPlaceInstrumentedTest {
 
     private MainActivity mActivity;
 
@@ -52,35 +47,24 @@ public class SortByPlaceInstrumentedTest {
     public void setUp() {
         mActivity = mActivityTestRule.getActivity();
         assertThat(mActivity, notNullValue());
-        List<Meeting> fake_meeting = FAKE_MEETING;
-        for (Meeting meeting: fake_meeting) {
+        for (Meeting meeting: FAKE_MEETING) {
             mActivity.getMeetingRepository().addMeeting(meeting);
         }
     }
 
     @Test
-    public void sortByPlaceInstrumentedTest() {
-
+    public void filterByPlaceInstrumentedTest() {
         onView(ViewMatchers.withId(R.id.menu_activity_item_sort_by)).perform(click());
-        onView(withText("Trier par lieu")).perform(click());
 
-        ViewInteraction appCompatSpinner = onView(
-                allOf(withId(R.id.dialog_room_spinner_sp),
+        ViewInteraction appCompatTextView = onView(
+                allOf(withId(R.id.title), withText("Filtrer par lieu"),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(android.R.id.custom),
+                                        withId(R.id.content),
                                         0),
                                 0),
                         isDisplayed()));
-        appCompatSpinner.perform(click());
-
-        DataInteraction appCompatCheckedTextView = onData(anything())
-                .inAdapterView(allOf(withClassName(is("com.android.internal.app.AlertController$RecycleListView")),
-                        childAtPosition(
-                                withClassName(is("android.widget.LinearLayout")),
-                                0)))
-                .atPosition(1);
-        appCompatCheckedTextView.perform(click());
+        appCompatTextView.perform(click());
 
         ViewInteraction appCompatButton = onView(
                 allOf(withId(android.R.id.button1), withText("ok"),

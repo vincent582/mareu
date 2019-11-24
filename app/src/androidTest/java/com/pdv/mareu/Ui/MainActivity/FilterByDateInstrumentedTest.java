@@ -36,7 +36,7 @@ import static org.hamcrest.core.IsNull.notNullValue;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class SortByDateInstrumentedTest {
+public class FilterByDateInstrumentedTest {
 
     private MainActivity mActivity;
 
@@ -53,11 +53,11 @@ public class SortByDateInstrumentedTest {
     }
 
     @Test
-    public void sortByDateInstrumentedTest() {
+    public void filterByDateInstrumentedTest() {
         onView(ViewMatchers.withId(R.id.menu_activity_item_sort_by)).perform(click());
 
         ViewInteraction appCompatTextView = onView(
-                allOf(withId(R.id.title), withText("Trier par date"),
+                allOf(withId(R.id.title), withText("Filtrer par date"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.content),
