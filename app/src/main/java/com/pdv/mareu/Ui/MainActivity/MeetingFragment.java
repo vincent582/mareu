@@ -53,17 +53,20 @@ public class MeetingFragment extends Fragment implements DialogDatePickerFragmen
         mRecyclerView = (RecyclerView) view.findViewById(R.id.meeting_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        restoreDataFab = getActivity().findViewById(R.id.back_filter_meeting_fab);
-
+        configureFABRestoreData();
         initList();
+        return view;
 
+    }
+
+    private void configureFABRestoreData() {
+        restoreDataFab = getActivity().findViewById(R.id.back_filter_meeting_fab);
         restoreDataFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 initList();
             }
         });
-        return view;
     }
 
     @Override
