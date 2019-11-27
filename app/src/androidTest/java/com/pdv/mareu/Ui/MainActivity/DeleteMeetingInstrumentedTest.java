@@ -17,9 +17,7 @@ import org.junit.runner.RunWith;
 import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
-import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static com.pdv.mareu.ApiService.MeetingGeneratorApi.FAKE_MEETING;
 import static com.pdv.mareu.Utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -49,10 +47,9 @@ public class DeleteMeetingInstrumentedTest {
      * We ensure that our recyclerview is displaying at least on item
      */
     @Test
-    public void MeetingList_shouldNotBeEmpty() {
-        // First scroll to the position that needs to be matched and click on it.
+    public void MeetingList_shouldNotBeEmpty(){
         onView(ViewMatchers.withId(R.id.meeting_recycler_view))
-                .check(matches(hasMinimumChildCount(1)));
+                .check(withItemCount(ITEM_COUNT));
     }
 
     /**

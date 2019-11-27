@@ -9,6 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: 'true'
     }
     buildTypes {
         release {
@@ -22,6 +23,7 @@ android {
     }
     testOptions {
         unitTests.returnDefaultValues = true
+        execution 'ANDROID_TEST_ORCHESTRATOR'
     }
 }
 
@@ -42,20 +44,12 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
 
 
-    testImplementation "org.mockito:mockito-core:2.6.1"
-
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.jakewharton:butterknife:9.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0'
 
     implementation 'org.greenrobot:eventbus:3.1.1'
 
-    // 1. Use Guava in your implementation only:
-    implementation("com.google.guava:guava:28.1-jre")
-    // 2. Use Guava types in your public API:
-    api("com.google.guava:guava:28.1-jre")
-    // 3. Android - Use Guava in your implementation only:
-    implementation("com.google.guava:guava:28.1-android")
-    // 4. Android - Use Guava types in your public API:
-    api("com.google.guava:guava:28.1-android")
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestUtil 'com.android.support.test:orchestrator:1.0.2'
 }
