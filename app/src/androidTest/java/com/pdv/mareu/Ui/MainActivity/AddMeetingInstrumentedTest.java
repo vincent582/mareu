@@ -53,6 +53,7 @@ public class AddMeetingInstrumentedTest {
 
     @Test
     public void addMeetingInstrumentedTest() {
+
         //click on button to add meeting
         ViewInteraction floatingActionButton = onView(
                 allOf(withId(R.id.add_meeting_fab),
@@ -89,13 +90,11 @@ public class AddMeetingInstrumentedTest {
         ViewInteraction appCompatButton2 = onView(
                 allOf(withId(android.R.id.button1), withText("ok"),
                         childAtPosition(
-                                allOf(withClassName(is("android.widget.LinearLayout")),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
-                                                3)),
-                                3),
-                        isDisplayed()));
-        appCompatButton2.perform(click());
+                                childAtPosition(
+                                        withClassName(is("android.widget.ScrollView")),
+                                        0),
+                                3)));
+        appCompatButton2.perform(scrollTo(), click());
 
         //select time of meeting
         ViewInteraction appCompatButton3 = onView(
@@ -111,13 +110,11 @@ public class AddMeetingInstrumentedTest {
         ViewInteraction appCompatButton4 = onView(
                 allOf(withId(android.R.id.button1), withText("ok"),
                         childAtPosition(
-                                allOf(withClassName(is("android.widget.LinearLayout")),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
-                                                3)),
-                                3),
-                        isDisplayed()));
-        appCompatButton4.perform(click());
+                                childAtPosition(
+                                        withClassName(is("android.widget.ScrollView")),
+                                        0),
+                                3)));
+        appCompatButton4.perform(scrollTo(), click());
 
         //Open the dialog to add one email adress of contributor
         ViewInteraction appCompatButton5 = onView(
@@ -144,13 +141,11 @@ public class AddMeetingInstrumentedTest {
         ViewInteraction appCompatButton6 = onView(
                 allOf(withId(android.R.id.button1), withText("Valider"),
                         childAtPosition(
-                                allOf(withClassName(is("android.widget.LinearLayout")),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
-                                                3)),
-                                3),
-                        isDisplayed()));
-        appCompatButton6.perform(click());
+                                childAtPosition(
+                                        withClassName(is("android.widget.ScrollView")),
+                                        0),
+                                3)));
+        appCompatButton6.perform(scrollTo(), click());
 
         //create the meeting on click on create button
         ViewInteraction appCompatButton7 = onView(

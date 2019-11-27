@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -113,6 +114,23 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
         }
     }
 
+    private void configureRoomSpinner() {
+        //get List Room
+        List<Room> rooms = mMeetingRepository.getMeetingsRoomsList();
+        //add values in room arrayList
+        mMeetingRoom.setAdapter(new ArrayAdapter<Room>(getContext()
+                ,android.R.layout.simple_spinner_dropdown_item, rooms));
+        mMeetingRoom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedRoom = (Room) mMeetingRoom.getSelectedItem();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
     private void showDatePikerDialog() {
         DialogDatePickerFragment dialog = new DialogDatePickerFragment();
         dialog.setTargetFragment(CreateMeetingFragment.this,3);
@@ -131,30 +149,13 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
         dialog.show(getFragmentManager(), "DialogContributorSelectorFragment");
     }
 
-    private void configureRoomSpinner() {
-        //get List Room
-        List<Room> rooms = mMeetingRepository.getMeetingsRoomsList();
-        //add values in room arrayList
-        mMeetingRoom.setAdapter(new ArrayAdapter<Room>(getContext()
-                ,android.R.layout.simple_spinner_dropdown_item, rooms));
-        mMeetingRoom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedRoom = (Room) mMeetingRoom.getSelectedItem();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
-
     private void createMeeting() {
         subjet = mMeetingSubject.getText().toString();
         if (subjet.isEmpty()){
             mMeetingSubject.setError(getText(R.string.infoAddSubjectToMeeting));
         }
         else if((timeFormated == null) || (dateFormated == null)){
-            Toast.makeText(getContext(),R.string.infoAddDateTimeToMeeting, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.infoAddDateTimeToMeeting, Toast.LENGTH_SHORT).show();
         }
         else{
             calendar.set(mYear,mMonth,mDay,mHours,mMinutes);
@@ -166,7 +167,7 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
                 getActivity().finish();
             }
             else {
-                Toast.makeText(getContext(),R.string.infoMeetingRoom, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.infoMeetingRoom, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -190,7 +191,6 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
         return available;
     }
 
-
     public void showListContributor(){
         mContributorList.setVisibility(View.VISIBLE);
         String textmails = "";
@@ -205,7 +205,7 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
 
         if (isEmailValid(contributor.getText().toString())){
             mails.add(contributor.getText().toString());
-            Toast.makeText(this.getContext(),R.string.contributorAddWithSuccess,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getContext(), R.string.contributorAddWithSuccess,Toast.LENGTH_SHORT).show();
             if (addContributor.isChecked()){
                 showContributorDialog();
             }else {
@@ -213,7 +213,7 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
             }
         }
         else {
-            Toast.makeText(this.getContext(),R.string.mailNotValide,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getContext(), R.string.mailNotValide,Toast.LENGTH_SHORT).show();
             showContributorDialog();
         }
     }
@@ -231,7 +231,7 @@ public class CreateMeetingFragment extends Fragment implements View.OnClickListe
         mMinutes = time.getCurrentMinute();
         timeFormated = String.format("%02dh%02d", mHours, mMinutes);
         mMeetingSelectTime.setText(timeFormated);
-        Toast.makeText(this.getContext(),R.string.choiceConfirmed,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(), R.string.choiceConfirmed,Toast.LENGTH_SHORT).show();
     }
 
     @Override

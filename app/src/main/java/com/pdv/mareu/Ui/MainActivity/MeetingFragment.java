@@ -56,7 +56,13 @@ public class MeetingFragment extends Fragment implements DialogDatePickerFragmen
         configureFABRestoreData();
         initList();
         return view;
+    }
 
+    @SuppressLint("RestrictedApi")
+    private void initList() {
+        adapter = new MeetingItemRecyclerViewAdapter(mMeetingRepository.getMeetingsList());
+        mRecyclerView.setAdapter(adapter);
+        restoreDataFab.setVisibility(View.INVISIBLE);
     }
 
     private void configureFABRestoreData() {
@@ -82,13 +88,6 @@ public class MeetingFragment extends Fragment implements DialogDatePickerFragmen
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @SuppressLint("RestrictedApi")
-    private void initList() {
-        adapter = new MeetingItemRecyclerViewAdapter(mMeetingRepository.getMeetingsList());
-        mRecyclerView.setAdapter(adapter);
-        restoreDataFab.setVisibility(View.INVISIBLE);
     }
 
     @SuppressLint("RestrictedApi")
@@ -162,5 +161,3 @@ public class MeetingFragment extends Fragment implements DialogDatePickerFragmen
         filterListByPlace(room.toString());
     }
 }
-
-

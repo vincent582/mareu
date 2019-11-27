@@ -1,7 +1,5 @@
 package com.pdv.mareu.ApiService;
 
-import android.util.Log;
-
 import com.pdv.mareu.Model.Meeting;
 import com.pdv.mareu.Model.Room;
 
@@ -37,7 +35,6 @@ public class MeetingApiService implements MyMeetingApiService {
     public List<Meeting> filterByDate(String date) {
         List<Meeting> meetingListByDate = new ArrayList<>();
         for (Meeting meeting: mMeetingList) {
-            Log.e("TAG", "filterByDate: "+ meeting.getDateFormated() + " " +date);
             if (meeting.getDateFormated().equals(date)){
                 meetingListByDate.add(meeting);
             }

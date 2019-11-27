@@ -32,6 +32,7 @@ public class MeetingItemRecyclerViewAdapter extends RecyclerView.Adapter<Meeting
 
     public void updateList(List<Meeting> meetingList){
         this.mMeetingList = meetingList;
+        this.notifyDataSetChanged();
     }
 
     @Override
